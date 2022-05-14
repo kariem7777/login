@@ -102,7 +102,7 @@ void Password(){
     }else{
         cout<<"\npassword matched."<<endl;
 
-        password=encrypt(password);
+        password=encrypt_decrypt(password);
         new_user.password=password;
         file<<new_user.ID<<endl;
         file<<new_user.username<<endl;
@@ -157,8 +157,7 @@ void loadData(map <string, user> &users_info){
       getline(file,temp.mobile);
       getline(file,temp.password);
 
-      temp.password=decrypt(temp.password);
-      cout<<temp.password;
+      temp.password=encrypt_decrypt(temp.password);
       users_info.emplace(temp.ID,temp);
     }
     file.close();
@@ -220,60 +219,33 @@ void change_password(){
     rename("temp.txt","users.txt");
 }
 
-
-char keyword_line(string keyword){
-    //to check... if the keyword is ended , it will start it again according to the length of the user's message
-    if (counter==keyword.length()-1)
-        counter=-1;
-    counter +=1;
-    return keyword[counter];
-}
-
-
-string encrypt(string message){
-    string encrypted_password;
-    encrypted_password="";
-    for(int i=0; i<message.length(); i++){
-        if ( ( (int)message[i]<65 ) || ( (int)message[i]>90 && (int)message[i]<97 )||((int)message[i]>122) ){
-            encrypted_password +=message[i];
-        }else if( ( (int)message[i]>=65 && (int)message[i]<=90) ){
-            encrypted_password += (char)((( (int)message[i] + 65 ) % 26 )+ 65);
-        }else if( (int)message[i]>=97 && (int)message[i]<=122){
-            encrypted_password += (char)((( (int)message[i] + 97 ) % 26 )+ 97);
-        }
-    }
-    return encrypted_password;
-}
-
-string decrypt(string message){
-    int x;             //a variable to store the sum of the two characters in it
-    string decrypted_password;
-    cout<<message;
-    decrypted_password="";
-    for(int i=0; i<message.length(); ++i){
-            cout<<".";
-        if ( ( (int)message[i]<65 ) || ( (int)message[i]>90 && (int)message[i]<97 )||((int)message[i]>122) ){
-            decrypted_password +=message[i];
-        }else if( ((int)message[i]>=65 && (int)message[i]<=90) ){
-            x= ( (int)message[i] - 65 );
-            if (x<0){
-                x += 26;
-                decrypted_password +=(char)( (x % 26) + 65);
-            }else{
-                decrypted_password +=(char) ( (x % 26) + 65);
+string encrypt_decrypt(string text){
+    string nwpass="";
+    for (int n=0 ; n<text.length() ; n++)
+        {
+            char newtext ;
+            if (text[n] != ' ')
+            {
+                if (isupper(text[n]))
+                {
+                    newtext = 'Z'- (text[n]-'A') ;
+                    nwpass+= newtext ;
+                }
+                else
+                {
+                    newtext = 'z'- (text[n]-'a') ;
+                    nwpass+= newtext ;
+                }
             }
-        }else if(((int)message[i]>=97 && (int)message[i]<=122)){
-            x= ( (int)message[i] - 97 );
-            cout<<x;
-            if (x<0){
-                x += 26;
-                decrypted_password +=(char)( (x % 26) + 97);
-            }else{
-                decrypted_password +=(char) ( (x % 26) + 97);
+            else
+            {
+                newtext =' ' ;
+                nwpass+= newtext ;
             }
         }
+        return nwpass;
     }
-    cout<<decrypted_password;
-    return decrypted_password;
 
-}
+
+
+

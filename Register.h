@@ -29,7 +29,6 @@ string validpass();
 void Password();
 string hidepass();
 char keyword_line(string keyword);
-string encrypt(string message);
-string decrypt(string message);
 
+string encrypt_decrypt(string text);
 #endif //NEW_FOLDER__4__REGISTER_H
