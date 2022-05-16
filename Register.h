@@ -32,3 +32,5 @@ char keyword_line(string keyword);
 
 string encrypt_decrypt(string text);
 #endif //NEW_FOLDER__4__REGISTER_H
+
+
