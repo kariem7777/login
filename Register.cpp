@@ -245,7 +245,3 @@ string encrypt_decrypt(string text){
         }
         return nwpass;
     }
-
-
-
-
