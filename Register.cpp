@@ -9,7 +9,6 @@ using namespace std;
 
 void RegisterUser(){
 
-
     file.open("users.txt",ios::app);
     cout<<"enter the ID: ";
     new_user.ID=validId();
