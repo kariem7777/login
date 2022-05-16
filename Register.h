@@ -7,8 +7,6 @@ using namespace  std;
 string input;
 fstream file;
 
-
-
 struct user{
     string ID,username,email,password,mobile;
 };
